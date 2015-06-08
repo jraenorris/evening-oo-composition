@@ -15,11 +15,16 @@ class Airplane
   end
 
   def can_fill?
-    to_fill = available_capacity
-    until to_fill <= 200
-      to_fill -= 200
-      ####################
+    capacity_left = available_capacity
+    containers = 0
+    until capacity_left <500
+      capacity_left -= 500
+      containers += 1
     end
+    lbs_brussels_packed = (containers * 300) + capacity_left
+    brussels_until_at_capacity = Ingredient.new("brussels sprouts")
+    brussels_until_at_capacity = brussels_until_at_capacity.units(lbs_brussels_packed)
+    "#{brussels_until_at_capacity.floor} units of brussels sprouts can be packed with #{contents.lbs_stored} lbs of cheesy poofs"
   end
 
 end
@@ -67,3 +72,11 @@ class Ingredient
   end
 
 end
+
+fivek_poofs = Container.new("cheesy poofs", 5000)
+brussels_with_fivek_poofs = Airplane.new(fivek_poofs)
+puts brussels_with_fivek_poofs.can_fill?
+
+onek_poofs = Container.new("cheesy poofs", 1000)
+brussels_with_onek_poofs = Airplane.new(onek_poofs)
+puts brussels_with_onek_poofs.can_fill?
